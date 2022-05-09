@@ -4,17 +4,16 @@ import (
 	"encoding/hex"
 	"math/big"
 	"net"
-	"strconv"
 	"strings"
-	"time"
+
+	"monopool/algorithm"
+	"monopool/config"
+	"monopool/daemons"
+	"monopool/storage"
+	"monopool/types"
+	"monopool/utils"
 
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/mining-pool/not-only-mining-pool/algorithm"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/daemons"
-	"github.com/mining-pool/not-only-mining-pool/storage"
-	"github.com/mining-pool/not-only-mining-pool/types"
-	"github.com/mining-pool/not-only-mining-pool/utils"
 )
 
 var log = logging.Logger("jobMgr")
@@ -167,7 +166,7 @@ func (jm *JobManager) ProcessTemplate(rpcData *daemons.GetBlockTemplate) {
 }
 
 func (jm *JobManager) ProcessSubmit(jobId string, prevDiff, diff *big.Float, extraNonce1 []byte, hexExtraNonce2, hexNTime, hexNonce string, ipAddr net.Addr, workerName string) (share *types.Share) {
-	submitTime := time.Now()
+	// submitTime := time.Now()
 
 	var miner, rig string
 	names := strings.Split(workerName, ".")
@@ -219,21 +218,21 @@ func (jm *JobManager) ProcessSubmit(jobId string, prevDiff, diff *big.Float, ext
 	}
 
 	// allowed nTime range [GBT's CurTime, submitTime+7s]
-	nTimeInt, err := strconv.ParseInt(hexNTime, 16, 64)
-	if err != nil {
-		log.Error(err)
-	}
-	if uint32(nTimeInt) < job.GetBlockTemplate.CurTime || nTimeInt > submitTime.Unix()+7 {
-		log.Error("nTime incorrect: expect from ", job.GetBlockTemplate.CurTime, " to ", submitTime.Unix()+7, ", got ", uint32(nTimeInt))
-		return &types.Share{
-			JobId:      jobId,
-			RemoteAddr: ipAddr,
-			Miner:      miner,
-			Rig:        rig,
+	// nTimeInt, err := strconv.ParseInt(hexNTime, 16, 64)
+	// if err != nil {
+	// 	log.Error(err)
+	// }
+	// if uint32(nTimeInt) < job.GetBlockTemplate.CurTime || nTimeInt > submitTime.Unix()+7 {
+	// 	log.Error("nTime incorrect: expect from ", job.GetBlockTemplate.CurTime, " to ", submitTime.Unix()+7, ", got ", uint32(nTimeInt))
+	// 	return &types.Share{
+	// 		JobId:      jobId,
+	// 		RemoteAddr: ipAddr,
+	// 		Miner:      miner,
+	// 		Rig:        rig,
 
-			ErrorCode: types.ErrNTimeOutOfRange,
-		}
-	}
+	// 		ErrorCode: types.ErrNTimeOutOfRange,
+	// 	}
+	// }
 
 	if len(hexNonce) != 8 {
 		return &types.Share{
