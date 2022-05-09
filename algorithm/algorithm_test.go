@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/utils"
 )
 
 func TestHash(t *testing.T) {
@@ -38,4 +38,48 @@ func TestX11Hash(t *testing.T) {
 		t.Log(hash)
 		t.Fail()
 	}
+}
+
+func TestTagged1(t *testing.T) {
+	headerStr := "00000020ce394f2d4c2ba2cd594afa771844f03dfcba8d70207cbdf51edeb3000000000081dbce2985c787c8f1379509bfae22cb02a94de4827aa1d241205ff76ff332e8f8e0a861ffff001d1c0d5b58"
+	header, err := hex.DecodeString(headerStr)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+
+	hasher := GetHashFunc("sha256dt")
+	hash := hasher(header)
+
+	h := hex.EncodeToString(hash)
+
+	expected := "00000000df5c5164b4516916ac7a520df6039e8cac3d4ac9235e15eace81acd2"
+
+	if h != expected {
+		t.Errorf("Expected %q, got %q", expected, h)
+	}
+
+	t.Log(hash)
+}
+
+func TestTagged2(t *testing.T) {
+	headerStr := "00000020ffa4cd541945db26f86dfbed5e0136d2d3ecf84b8697b06e1ed034000000000008ac77e94ee2db0e017a9cfa3d57d6430d61aaecd3cab649634ba22f504e4e3d1cdd6f6282ba3d1bc3c5391c"
+	header, err := hex.DecodeString(headerStr)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+
+	hasher := GetHashFunc("sha256dt")
+	hash := hasher(header)
+
+	h := hex.EncodeToString(hash)
+
+	expected := "00000000002c778f7989918bba8c18f887984c009f68e445c14828ad3a2dcd3a"
+
+	if h != expected {
+		t.Errorf("Expected %q, got %q", expected, h)
+	}
+
+	t.Log(hash)
 }
