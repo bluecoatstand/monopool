@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/hex"
 
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/utils"
 )
 
 type MerkleTree struct {

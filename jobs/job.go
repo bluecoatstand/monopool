@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/mining-pool/not-only-mining-pool/algorithm"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/daemons"
-	"github.com/mining-pool/not-only-mining-pool/merkletree"
-	"github.com/mining-pool/not-only-mining-pool/transactions"
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/algorithm"
+	"monopool/config"
+	"monopool/daemons"
+	"monopool/merkletree"
+	"monopool/transactions"
+	"monopool/utils"
 )
 
 type Job struct {

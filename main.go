@@ -5,10 +5,11 @@ import (
 	"flag"
 	"os"
 
+	"monopool/config"
+	"monopool/pool"
+	"monopool/utils"
+
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/pool"
-	"github.com/mining-pool/not-only-mining-pool/utils"
 )
 
 var log = logging.Logger("main")
@@ -17,7 +18,7 @@ const defaultConfigFileName = "config.json"
 
 var (
 	configFileName = flag.String("c", defaultConfigFileName, "configuration file for pool")
-	logLevel       = flag.String("l", "info", "log level")
+	logLevel       = flag.String("l", "debug", "log level")
 )
 
 func main() {

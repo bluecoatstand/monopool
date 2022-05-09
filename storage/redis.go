@@ -6,10 +6,11 @@ import (
 	"strings"
 	"time"
 
+	"monopool/config"
+	"monopool/types"
+
 	"github.com/go-redis/redis/v8"
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/types"
 )
 
 var log = logging.Logger("storage")

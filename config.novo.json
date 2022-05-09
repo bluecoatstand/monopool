@@ -47,7 +47,7 @@
     {
       "host": "127.0.0.1",
       "port": 8665,
-      "user": "bitcoin",
+      "user": "novo",
       "password": "notsosecret",
       "tls": null
     }

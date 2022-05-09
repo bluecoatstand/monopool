@@ -7,10 +7,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/mining-pool/not-only-mining-pool/algorithm"
-	"github.com/mining-pool/not-only-mining-pool/daemons"
-	"github.com/mining-pool/not-only-mining-pool/merkletree"
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/algorithm"
+	"monopool/daemons"
+	"monopool/merkletree"
+	"monopool/utils"
 )
 
 func TestNewBlockTemplate(t *testing.T) {

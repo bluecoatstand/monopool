@@ -3,7 +3,7 @@ package bans
 import (
 	"time"
 
-	"github.com/mining-pool/not-only-mining-pool/config"
+	"monopool/config"
 )
 
 type BanningManager struct {

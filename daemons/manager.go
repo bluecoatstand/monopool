@@ -9,9 +9,10 @@ import (
 	"strconv"
 	"sync"
 
+	"monopool/config"
+	"monopool/utils"
+
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/utils"
 )
 
 var log = logging.Logger("daemons")

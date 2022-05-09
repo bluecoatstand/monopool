@@ -3,7 +3,7 @@ package config
 import (
 	"strings"
 
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/utils"
 )
 
 type Recipient struct {

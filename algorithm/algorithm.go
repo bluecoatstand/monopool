@@ -5,8 +5,9 @@ import (
 	"math/big"
 	"strings"
 
+	"monopool/utils"
+
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/mining-pool/not-only-mining-pool/utils"
 	"github.com/samli88/go-x11-hash"
 	"golang.org/x/crypto/scrypt"
 )

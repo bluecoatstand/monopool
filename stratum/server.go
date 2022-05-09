@@ -10,11 +10,11 @@ import (
 
 	logging "github.com/ipfs/go-log/v2"
 
-	"github.com/mining-pool/not-only-mining-pool/bans"
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/daemons"
-	"github.com/mining-pool/not-only-mining-pool/jobs"
-	"github.com/mining-pool/not-only-mining-pool/vardiff"
+	"monopool/bans"
+	"monopool/config"
+	"monopool/daemons"
+	"monopool/jobs"
+	"monopool/vardiff"
 )
 
 var log = logging.Logger("stratum")

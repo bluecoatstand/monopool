@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/mining-pool/not-only-mining-pool/config"
-	"github.com/mining-pool/not-only-mining-pool/daemons"
-	"github.com/mining-pool/not-only-mining-pool/utils"
+	"monopool/config"
+	"monopool/daemons"
+	"monopool/utils"
 )
 
 func TestCreateGeneration(t *testing.T) {

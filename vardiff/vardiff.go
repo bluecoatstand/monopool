@@ -3,7 +3,7 @@ package vardiff
 import (
 	"time"
 
-	"github.com/mining-pool/not-only-mining-pool/config"
+	"monopool/config"
 )
 
 type VarDiff struct {
