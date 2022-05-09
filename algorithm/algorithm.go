@@ -1,6 +1,7 @@
 package algorithm
 
 import (
+	"encoding/hex"
 	"math/big"
 	"strings"
 
@@ -26,6 +27,8 @@ func GetHashFunc(hashName string) func([]byte) []byte {
 		return X11Hash
 	case "sha256d":
 		return DoubleSha256Hash
+	case "sha256dt":
+		return TaggedDoubleSha256
 	default:
 		log.Panic(hashName, " is not officially supported yet, but you can easily add it with cgo binding by yourself")
 		return nil
@@ -49,4 +52,27 @@ func X11Hash(data []byte) []byte {
 // DoubleSha256Hash is the algorithm which litecoin uses as its PoW mining algorithm
 func DoubleSha256Hash(b []byte) []byte {
 	return utils.Sha256d(b)
+}
+
+var tag, _ = hex.DecodeString("ce04921a0d6d9badccfec07629a154a6637383d6979ba5eb6298c1667a2a5a11")
+
+func TaggedDoubleSha256(b []byte) []byte {
+	var payload []byte
+
+	payload = append(payload, tag...)
+	payload = append(payload, tag...)
+
+	payload = append(payload, b...)
+
+	hash := utils.Sha256(payload)
+
+	var payload2 []byte
+	payload2 = append(payload2, tag...)
+	payload2 = append(payload2, tag...)
+	payload2 = append(payload2, hash...)
+
+	hash2 := utils.Sha256(payload2)
+	hash2 = utils.ReverseBytes(hash2)
+
+	return hash2
 }

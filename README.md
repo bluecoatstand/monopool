@@ -1,3 +1,6 @@
+# Forked and modified for NovoBitcoin
+
+
 # Not-Only-Mining-Pool(NOMP)
 
 BitcoinCore(bitcoind)-variants' pool written in golang
