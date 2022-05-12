@@ -2,6 +2,7 @@ package algorithm
 
 import (
 	"encoding/hex"
+	"fmt"
 	"math/big"
 	"strings"
 
@@ -64,6 +65,8 @@ func TaggedDoubleSha256(b []byte) []byte {
 	payload = append(payload, tag...)
 
 	payload = append(payload, b...)
+
+	fmt.Printf("HEADER - %x\n", b)
 
 	hash := utils.Sha256(payload)
 

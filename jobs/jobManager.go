@@ -2,9 +2,12 @@ package jobs
 
 import (
 	"encoding/hex"
+	"fmt"
 	"math/big"
 	"net"
+	"strconv"
 	"strings"
+	"time"
 
 	"monopool/algorithm"
 	"monopool/config"
@@ -116,7 +119,7 @@ func (jm *JobManager) CheckBlockAccepted(blockHash string) (isAccepted bool, tx 
 // UpdateCurrentJob updates the job when mining the same height but tx changes
 func (jm *JobManager) UpdateCurrentJob(rpcData *daemons.GetBlockTemplate) {
 	tmpBlockTemplate := NewJob(
-		jm.CurrentJob.JobId,
+		fmt.Sprintf("%d", time.Now().UTC().Unix()),
 		rpcData,
 		jm.PoolAddress.GetScript(),
 		jm.ExtraNoncePlaceholder,
@@ -166,7 +169,7 @@ func (jm *JobManager) ProcessTemplate(rpcData *daemons.GetBlockTemplate) {
 }
 
 func (jm *JobManager) ProcessSubmit(jobId string, prevDiff, diff *big.Float, extraNonce1 []byte, hexExtraNonce2, hexNTime, hexNonce string, ipAddr net.Addr, workerName string) (share *types.Share) {
-	// submitTime := time.Now()
+	submitTime := time.Now()
 
 	var miner, rig string
 	names := strings.Split(workerName, ".")
@@ -218,21 +221,21 @@ func (jm *JobManager) ProcessSubmit(jobId string, prevDiff, diff *big.Float, ext
 	}
 
 	// allowed nTime range [GBT's CurTime, submitTime+7s]
-	// nTimeInt, err := strconv.ParseInt(hexNTime, 16, 64)
-	// if err != nil {
-	// 	log.Error(err)
-	// }
-	// if uint32(nTimeInt) < job.GetBlockTemplate.CurTime || nTimeInt > submitTime.Unix()+7 {
-	// 	log.Error("nTime incorrect: expect from ", job.GetBlockTemplate.CurTime, " to ", submitTime.Unix()+7, ", got ", uint32(nTimeInt))
-	// 	return &types.Share{
-	// 		JobId:      jobId,
-	// 		RemoteAddr: ipAddr,
-	// 		Miner:      miner,
-	// 		Rig:        rig,
+	nTimeInt, err := strconv.ParseInt(hexNTime, 16, 64)
+	if err != nil {
+		log.Error(err)
+	}
+	if uint32(nTimeInt) < job.GetBlockTemplate.CurTime || nTimeInt > submitTime.Unix()+7 {
+		log.Error("nTime incorrect: expect from ", job.GetBlockTemplate.CurTime, " to ", submitTime.Unix()+7, ", got ", uint32(nTimeInt))
+		return &types.Share{
+			JobId:      jobId,
+			RemoteAddr: ipAddr,
+			Miner:      miner,
+			Rig:        rig,
 
-	// 		ErrorCode: types.ErrNTimeOutOfRange,
-	// 	}
-	// }
+			ErrorCode: types.ErrNTimeOutOfRange,
+		}
+	}
 
 	if len(hexNonce) != 8 {
 		return &types.Share{

@@ -1,5 +1,5 @@
 {
-  "disablePayment": true,
+  "disablePayment": false,
   "coin": {
     "name": "Novo",
     "symbol": "NBC"
